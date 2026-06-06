@@ -177,12 +177,15 @@ const isAllowedSSA = (rank) => {
     '1° TEN QPPM',
     '2º TEN QOPM',
     '2º TEN QOAPM',
+    'ST QPPM',
+    'ST PM',
     '1º SGT QPPM',
     '2º SGT QPPM',
     '3º SGT QPPM'
   ];
   return allowed.includes(r);
 };
+
 
 function App() {
   // Navigation Tab State
