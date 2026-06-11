@@ -6,7 +6,12 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: './',
   plugins: [react(), tailwindcss()],
+  css: {
+    transformer: 'lightningcss',
+  },
   build: {
+    target: 'chrome109',
+    cssMinify: 'lightningcss',
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name].js',
