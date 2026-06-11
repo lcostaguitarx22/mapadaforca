@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { jsPDF } from 'jspdf';
-import { 
-  Shield, 
-  Calendar, 
-  Clock, 
-  User, 
-  Phone, 
-  FileText, 
-  Download, 
-  Copy, 
-  Trash2, 
-  CheckCircle2, 
+import {
+  Shield,
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  FileText,
+  Download,
+  Copy,
+  Trash2,
+  CheckCircle2,
   AlertTriangle,
   FileCheck,
   MapPin,
@@ -94,8 +94,8 @@ const NumericCell = ({ value, onChange }) => {
   }
 
   const handleChange = (e) => {
-    let val = e.target.value.replace(/\D/g, ''); 
-    if (val.length > 2) val = val.slice(-2);     
+    let val = e.target.value.replace(/\D/g, '');
+    if (val.length > 2) val = val.slice(-2);
     setLocalVal(val);
     const parsed = parseInt(val, 10);
     onChange(isNaN(parsed) ? 0 : parsed);
@@ -357,9 +357,9 @@ function App() {
           const parsed = parseInt(value, 10);
           return { ...u, [field]: isNaN(parsed) ? 0 : parsed };
         }
-        
+
         let newUnit = { ...u, [field]: value };
-        
+
         if (field === 'supervisorId') {
           const cleanId = value.toString().trim();
           const p = POLICIAIS.find(x => x.rg.toString().trim() === cleanId);
@@ -374,7 +374,7 @@ function App() {
             newUnit.supervisor = '';
           }
         }
-        
+
         return newUnit;
       }
       return u;
@@ -392,7 +392,7 @@ function App() {
     let list = category === 'faltas' ? faltas : category === 'atrasos' ? atrasos : dispensas;
     const newList = list.filter((_, i) => i !== index);
     const finalized = newList.length === 0 ? ['S/A'] : newList;
-    
+
     if (category === 'faltas') setFaltas(finalized);
     if (category === 'atrasos') setAtrasos(finalized);
     if (category === 'dispensas') setDispensas(finalized);
@@ -504,7 +504,7 @@ function App() {
     lines.push(`*TEL: ${header.telefone || 'N/I'}.*`);
     lines.push('');
     lines.push('SUPERVISORES DE SUBÁREAS');
-    
+
     units.forEach(u => {
       if (!u.isHQ) {
         const nameVal = u.supervisor ? u.supervisor.toUpperCase().trim() : 'S/A';
@@ -512,22 +512,22 @@ function App() {
         lines.push(`*SSA ${u.shortName} : ${nameVal}${idVal}*`);
       }
     });
-    
+
     lines.push('------------------------------------------');
     lines.push('*VIATURAS MONTADAS*');
     lines.push('');
-    
+
     units.forEach(u => {
       const vtrTotal = u.vtrOrd + u.vtrSeg;
       const paddedTotal = formatNum(vtrTotal);
-      
+
       if (u.vtrSeg > 0) {
         lines.push(`${u.name} : ${paddedTotal} (ORD ${formatNum(u.vtrOrd)} + SEG ${formatNum(u.vtrSeg)})`);
       } else {
         lines.push(`${u.name} : ${paddedTotal}`);
       }
     });
-    
+
     lines.push('__________________________________________');
     lines.push('');
     lines.push(`TOTAL GERAL DE VIATURAS: ${grandTotalViaturas}`);
@@ -535,18 +535,18 @@ function App() {
     lines.push('');
     lines.push('*EFETIVO*');
     lines.push('');
-    
+
     units.forEach(u => {
       const pmTotal = u.pmOrd + u.pmSeg;
       const paddedTotal = formatNum(pmTotal);
-      
+
       if (u.pmSeg > 0) {
         lines.push(`${u.name} : ${paddedTotal} (ORD ${formatNum(u.pmOrd)} + SEG ${formatNum(u.pmSeg)})`);
       } else {
         lines.push(`${u.name} : ${paddedTotal}`);
       }
     });
-    
+
     lines.push('__________________________________________');
     lines.push('');
     lines.push(`TOTAL GERAL PM's: ${grandTotalEfetivo}`);
@@ -578,12 +578,12 @@ function App() {
       // A4 page boundaries
       doc.setDrawColor(...navyBlue);
       doc.setLineWidth(0.4);
-      doc.rect(6, 6, 198, 285); 
+      doc.rect(6, 6, 198, 285);
 
       // Header Banner
       doc.setFillColor(...navyDark);
       doc.rect(6, 6, 198, 24, 'F');
-      
+
       if (logoUrl) {
         try {
           doc.addImage(logoUrl, 'PNG', 12, 8, 16, 20);
@@ -597,11 +597,11 @@ function App() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.text("POLÍCIA MILITAR DO AMAZONAS", 105, 12, { align: "center" });
-      
+
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9.5);
       doc.text("BATALHÃO LESTE - BTL LESTE", 105, 17, { align: "center" });
-      
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
       doc.setTextColor(245, 176, 65);
@@ -612,14 +612,14 @@ function App() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(9);
       doc.text("INFORMAÇÕES OPERACIONAIS DO SERVIÇO", 12, 38);
-      
+
       doc.setDrawColor(...borderGray);
       doc.setLineWidth(0.2);
       doc.line(12, 40, 198, 40);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
-      
+
       doc.text(`Data: ${formatDateBR(header.data)}`, 12, 45);
       doc.text(`Hora do Registro: ${header.hora}`, 12, 50);
       doc.text(`Turno Operacional: ${getTurnoText()}`, 12, 55);
@@ -638,20 +638,20 @@ function App() {
 
       const tableYStart = 71;
       const colX = {
-        unidade: 12,      
-        supervisor: 35,  
-        id: 78,          
-        vtrOrd: 93,      
-        vtrSeg: 110,     
-        vtrTotal: 127,   
-        pmOrd: 144,      
-        pmSeg: 161,      
-        pmTotal: 178     
+        unidade: 12,
+        supervisor: 35,
+        id: 78,
+        vtrOrd: 93,
+        vtrSeg: 110,
+        vtrTotal: 127,
+        pmOrd: 144,
+        pmSeg: 161,
+        pmTotal: 178
       };
 
       doc.setFillColor(...navyBlue);
       doc.rect(12, tableYStart, 186, 7, 'F');
-      
+
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(7.5);
       doc.setFont("helvetica", "bold");
@@ -673,7 +673,7 @@ function App() {
           doc.setFillColor(...grayLight);
           doc.rect(12, currentY, 186, 6.5, 'F');
         }
-        
+
         doc.setDrawColor(...borderGray);
         doc.line(12, currentY + 6.5, 198, currentY + 6.5);
 
@@ -693,18 +693,18 @@ function App() {
         doc.text(u.name, colX.unidade + 2, currentY + 4.5);
         doc.text(supervisorDisplay, colX.supervisor + 2, currentY + 4.5);
         doc.text(idDisplay, colX.id + 2, currentY + 4.5);
-        
+
         // Centered numeric column output
         doc.text(formatNum(u.vtrOrd), colX.vtrOrd + 8.5, currentY + 4.5, { align: "center" });
         doc.text(formatNum(u.vtrSeg), colX.vtrSeg + 8.5, currentY + 4.5, { align: "center" });
-        
+
         doc.setFont("helvetica", "bold");
         doc.text(formatNum(u.vtrOrd + u.vtrSeg), colX.vtrTotal + 8.5, currentY + 4.5, { align: "center" });
-        
+
         doc.setFont("helvetica", "normal");
         doc.text(formatNum(u.pmOrd), colX.pmOrd + 8.5, currentY + 4.5, { align: "center" });
         doc.text(formatNum(u.pmSeg), colX.pmSeg + 8.5, currentY + 4.5, { align: "center" });
-        
+
         doc.setFont("helvetica", "bold");
         doc.text(formatNum(u.pmOrd + u.pmSeg), colX.pmTotal + 10, currentY + 4.5, { align: "center" });
 
@@ -714,21 +714,21 @@ function App() {
       // Total Geral Row inside PDF Table
       doc.setFillColor(230, 235, 245);
       doc.rect(12, currentY, 186, 7.5, 'F');
-      
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8);
       doc.text("TOTAL GERAL", colX.unidade + 2, currentY + 5);
-      
+
       doc.text(formatNum(totalVtrOrd), colX.vtrOrd + 8.5, currentY + 5, { align: "center" });
       doc.text(formatNum(totalVtrSeg), colX.vtrSeg + 8.5, currentY + 5, { align: "center" });
-      
-      doc.setTextColor(220, 140, 20); 
+
+      doc.setTextColor(220, 140, 20);
       doc.text(formatNum(grandTotalViaturas), colX.vtrTotal + 8.5, currentY + 5, { align: "center" });
       doc.setTextColor(...textDark);
-      
+
       doc.text(formatNum(totalPmOrd), colX.pmOrd + 8.5, currentY + 5, { align: "center" });
       doc.text(formatNum(totalPmSeg), colX.pmSeg + 8.5, currentY + 5, { align: "center" });
-      
+
       doc.setTextColor(220, 140, 20);
       doc.text(formatNum(grandTotalEfetivo), colX.pmTotal + 10, currentY + 5, { align: "center" });
       doc.setTextColor(...textDark);
@@ -745,7 +745,7 @@ function App() {
       doc.setFontSize(9);
       doc.text("ALTERAÇÕES E EVENTUALIDADES OPERACIONAIS", 12, currentY);
       doc.line(12, currentY + 2, 198, currentY + 2);
-      
+
       currentY += 6;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
@@ -786,7 +786,7 @@ function App() {
     try {
       const text = generateTXTString();
       const element = document.createElement("a");
-      const file = new Blob([text], {type: 'text/plain;charset=utf-8'});
+      const file = new Blob([text], { type: 'text/plain;charset=utf-8' });
       element.href = URL.createObjectURL(file);
       const dateFormatted = header.data ? header.data.replace(/-/g, '_') : 'mapa';
       element.download = `MAPA_DA_FORCA_${dateFormatted}.txt`;
@@ -808,9 +808,9 @@ function App() {
     const nature = occ.nature.trim() || 'Ocorrência de relevo';
     const ciopsVal = occ.ciopsInProg ? 'Ocorrência em Andamento, aguardando numeral' : occ.ciops.trim();
     const boVal = occ.boInProg ? 'Ocorrência em Andamento, aguardando numeral' : occ.bo.trim();
-    
+
     let result = `• ${nature}`;
-    
+
     if (ciopsVal && boVal) {
       result += `, Nº CIOPS: ${ciopsVal}. Nº BO: ${boVal}`;
     } else if (ciopsVal) {
@@ -818,7 +818,7 @@ function App() {
     } else if (boVal) {
       result += `, Nº BO: ${boVal}`;
     }
-    
+
     // Ensure it ends with a period
     if (!result.endsWith('.')) {
       result += '.';
@@ -839,12 +839,12 @@ function App() {
     lines.push(`*${dateFormatted} - ${turnoText}* ${timeFormatted}`);
     lines.push(`*SA LESTE: ${header.cpoNome.toUpperCase().trim() || 'SEM IDENTIFICAÇÃO'}*`);
     lines.push('');
-    
+
     OCCURRENCE_UNITS.forEach(unit => {
       lines.push(`*${unit.name}:*`);
       const list = occurrences[unit.id] || [];
       const activeOccs = list.filter(o => o.nature.trim() !== '');
-      
+
       if (activeOccs.length === 0) {
         lines.push('Sem ocorrência de grande vulto.');
       } else {
@@ -853,7 +853,7 @@ function App() {
         });
       }
     });
-    
+
     lines.push('');
     lines.push('*BOA FOLGA E BOM SERVIÇO A TODOS*');
     lines.push('');
@@ -877,7 +877,7 @@ function App() {
     try {
       const text = generateOccurrencesTXTString();
       const element = document.createElement("a");
-      const file = new Blob([text], {type: 'text/plain;charset=utf-8'});
+      const file = new Blob([text], { type: 'text/plain;charset=utf-8' });
       element.href = URL.createObjectURL(file);
       const dateFormatted = header.data ? header.data.replace(/-/g, '_') : 'ocorrencias';
       element.download = `RESUMO_DE_OCORRENCIAS_${dateFormatted}.txt`;
@@ -909,12 +909,12 @@ function App() {
       // Margem e borda
       doc.setDrawColor(...navyBlue);
       doc.setLineWidth(0.4);
-      doc.rect(6, 6, 198, 285); 
+      doc.rect(6, 6, 198, 285);
 
       // Header Banner
       doc.setFillColor(...navyDark);
       doc.rect(6, 6, 198, 24, 'F');
-      
+
       if (logoUrl) {
         try {
           doc.addImage(logoUrl, 'PNG', 12, 8, 16, 20);
@@ -928,11 +928,11 @@ function App() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.text("POLÍCIA MILITAR DO AMAZONAS", 105, 12, { align: "center" });
-      
+
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9.5);
       doc.text("BATALHÃO LESTE - BTL LESTE", 105, 17, { align: "center" });
-      
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
       doc.setTextColor(245, 176, 65);
@@ -943,14 +943,14 @@ function App() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(9);
       doc.text("INFORMAÇÕES OPERACIONAIS DO SERVIÇO", 12, 38);
-      
+
       doc.setDrawColor(...borderGray);
       doc.setLineWidth(0.2);
       doc.line(12, 40, 198, 40);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
-      
+
       doc.text(`Data: ${formatDateBR(header.data)}`, 12, 45);
       doc.text(`Hora do Registro: ${header.hora}`, 12, 50);
       doc.text(`Turno Operacional: ${getTurnoText()}`, 12, 55);
@@ -1010,15 +1010,15 @@ function App() {
               doc.rect(6, 6, 198, 285);
               currentY = 15;
             }
-            
+
             const formatted = formatSingleOccurrence(o);
             const splitText = doc.splitTextToSize(formatted, 178); // wrap cleanly
             doc.text(splitText, 16, currentY + 4.5);
             currentY += (splitText.length * 4) + 1.5;
           });
         }
-        
-        currentY += 1.5; 
+
+        currentY += 1.5;
       });
 
       // Spacing for footers
@@ -1066,16 +1066,16 @@ function App() {
             <div className="relative group p-1 bg-white/10 rounded-xl border border-white/20 shadow-inner overflow-hidden">
               <img src={logoUrl} className="w-16 h-16 object-contain rounded" alt="CPA Leste Logo" />
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1">
-                <button 
-                  onClick={() => fileInputRef.current.click()} 
+                <button
+                  onClick={() => fileInputRef.current.click()}
                   className="p-1 bg-blue-600 rounded text-white hover:bg-blue-700 cursor-pointer"
                   title="Upload Logo"
                 >
                   <Upload className="w-3.5 h-3.5" />
                 </button>
                 {logoUrl !== 'logo.png' && (
-                  <button 
-                    onClick={resetLogo} 
+                  <button
+                    onClick={resetLogo}
                     className="p-1 bg-rose-600 rounded text-white hover:bg-rose-700 cursor-pointer"
                     title="Redefinir Logo"
                   >
@@ -1083,15 +1083,15 @@ function App() {
                   </button>
                 )}
               </div>
-              <input 
-                ref={fileInputRef} 
-                type="file" 
-                accept="image/*" 
-                onChange={handleLogoUpload} 
-                className="hidden" 
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleLogoUpload}
+                className="hidden"
               />
             </div>
-            
+
             <div>
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-blue-500/20 border border-blue-500/50 text-blue-400 rounded">PMAM</span>
@@ -1129,7 +1129,7 @@ function App() {
             <FileCheck className="w-5 h-5 text-blue-600" />
             <h2 className="text-lg font-bold text-slate-800 tracking-wide uppercase">Identificação Operacional</h2>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
             {/* Date */}
             <div className="flex flex-col gap-1.5">
@@ -1143,7 +1143,7 @@ function App() {
                 className="glass-input px-3 py-2 text-sm rounded-lg"
               />
             </div>
-            
+
             {/* Time */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-slate-505 uppercase tracking-wider flex items-center gap-1.5">
@@ -1227,7 +1227,7 @@ function App() {
               </label>
               <input
                 type="text"
-                placeholder="Ex: 8520"
+                placeholder="Ex: 25-1006"
                 value={header.vtrSa || ''}
                 onChange={(e) => setHeader(prev => ({ ...prev, vtrSa: e.target.value }))}
                 className="glass-input px-3 py-2 text-sm rounded-lg placeholder-slate-400"
@@ -1252,7 +1252,7 @@ function App() {
 
       {/* Main Content Area - Toggle tabs */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 mt-6 flex-grow w-full flex flex-col gap-8">
-        
+
         {/* ========================================================================= */}
         {/* SCREEN 1: MAPA DA FORÇA                                                   */}
         {/* ========================================================================= */}
@@ -1331,10 +1331,10 @@ function App() {
                     {units.map((unit, idx) => {
                       const vtrTotal = unit.vtrOrd + unit.vtrSeg;
                       const pmTotal = unit.pmOrd + unit.pmSeg;
-                      
+
                       return (
-                        <tr 
-                          key={unit.id} 
+                        <tr
+                          key={unit.id}
                           className={`hover:bg-slate-50/70 transition-colors ${idx % 2 === 1 ? 'bg-slate-50/30' : 'bg-white'} ${unit.isHQ ? 'bg-blue-50/20 font-semibold' : ''}`}
                         >
                           <td className="py-2.5 px-4 font-bold text-slate-800 border-r border-slate-100">
@@ -1411,7 +1411,7 @@ function App() {
                   const pmTotal = unit.pmOrd + unit.pmSeg;
 
                   return (
-                    <div 
+                    <div
                       key={unit.id}
                       className={`p-4 rounded-xl border flex flex-col gap-4 ${unit.isHQ ? 'bg-blue-50/30 border-blue-200' : 'bg-white border-slate-200'}`}
                     >
@@ -1497,25 +1497,25 @@ function App() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <IncidentListField 
-                  label="Faltas de Efetivo (Ex: Nome/ID)" 
-                  items={faltas} 
+                <IncidentListField
+                  label="Faltas de Efetivo (Ex: Nome/ID)"
+                  items={faltas}
                   placeholder="EX: SD STIVE FULANO (123456) - OPM"
                   onAdd={() => handleAddIncidentItem('faltas')}
                   onChange={(idx, val) => handleIncidentItemChange('faltas', idx, val)}
                   onRemove={(idx) => handleRemoveIncidentItem('faltas', idx)}
                 />
-                <IncidentListField 
-                  label="Atrasos de Serviço" 
-                  items={atrasos} 
+                <IncidentListField
+                  label="Atrasos de Serviço"
+                  items={atrasos}
                   placeholder="EX: SD STIVE FULANO (123456) - OPM"
                   onAdd={() => handleAddIncidentItem('atrasos')}
                   onChange={(idx, val) => handleIncidentItemChange('atrasos', idx, val)}
                   onRemove={(idx) => handleRemoveIncidentItem('atrasos', idx)}
                 />
-                <IncidentListField 
-                  label="Dispensas do Turno" 
-                  items={dispensas} 
+                <IncidentListField
+                  label="Dispensas do Turno"
+                  items={dispensas}
                   placeholder="EX: SD STIVE FULANO (123456) - OPM"
                   onAdd={() => handleAddIncidentItem('dispensas')}
                   onChange={(idx, val) => handleIncidentItemChange('dispensas', idx, val)}
@@ -1582,7 +1582,7 @@ function App() {
                   const activeCount = list.filter(o => o.nature.trim() !== '').length;
 
                   return (
-                    <div 
+                    <div
                       key={unit.id}
                       className="border border-slate-200 rounded-xl overflow-hidden shadow-xs hover:border-slate-300 transition-all bg-white"
                     >
@@ -1614,8 +1614,8 @@ function App() {
                         ) : (
                           <div className="flex flex-col gap-4 divide-y divide-slate-100">
                             {list.map((occ, idx) => (
-                              <div 
-                                key={idx} 
+                              <div
+                                key={idx}
                                 className={`pt-4 first:pt-0 flex flex-col gap-4 relative ${list.length > 1 ? 'pr-8' : ''}`}
                               >
                                 {/* Remove button for occurrence */}
@@ -1652,7 +1652,7 @@ function App() {
                                     <div className="flex justify-between items-center">
                                       <label className="text-[10px] font-bold text-slate-500 uppercase">Nº CIOPS</label>
                                       <label className="flex items-center gap-1 text-[10px] font-semibold text-blue-600 cursor-pointer">
-                                        <input 
+                                        <input
                                           type="checkbox"
                                           checked={occ.ciopsInProg}
                                           onChange={(e) => {
@@ -1683,7 +1683,7 @@ function App() {
                                     <div className="flex justify-between items-center">
                                       <label className="text-[10px] font-bold text-slate-500 uppercase">Nº BO</label>
                                       <label className="flex items-center gap-1 text-[10px] font-semibold text-blue-600 cursor-pointer">
-                                        <input 
+                                        <input
                                           type="checkbox"
                                           checked={occ.boInProg}
                                           onChange={(e) => {
@@ -1774,7 +1774,7 @@ function App() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowClearConfirm(false)}
@@ -1809,7 +1809,7 @@ function App() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowOccClearConfirm(false)}
