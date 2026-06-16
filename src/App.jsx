@@ -1347,12 +1347,12 @@ function App() {
 
               {/* tELA DE LISTAGEM  VTR E PMS */}
               <div className="overflow-x-auto hidden md:block">
-                <table className="w-full text-left border-collapse">
+                <table className="w-full text-center border-collapse">
                   <thead>
                     <tr className="bg-[#1b264f] text-white text-xs font-bold uppercase tracking-wider border-b border-slate-350">
                       <th className="py-3.5 px-4 w-[14%] border-r border-white/5">UNIDADE</th>
                       <th className="py-3.5 px-4 w-[24%] border-r border-white/5">SUPERVISOR (SSA)</th>
-                      <th className="py-3.5 px-4 w-[11%] border-r border-white/5">ID</th>
+                      <th className="py-3.5 px-4 w-[11%] border-r border-white/5">CI</th>
                       <th className="py-3.5 px-4 w-[8%] text-center border-r border-white/5">VTR ORD</th>
                       <th className="py-3.5 px-4 w-[8%] text-center border-r border-white/5">VTR SEG</th>
                       <th className="py-3.5 px-4 w-[9%] text-center border-r border-white/5 font-bold">VTR Total</th>
