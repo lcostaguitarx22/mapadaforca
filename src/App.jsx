@@ -216,7 +216,15 @@ function App() {
   // Mapa da Força Table State
   const [units, setUnits] = useState(() => {
     const saved = localStorage.getItem('mf_units');
-    return saved ? JSON.parse(saved) : INITIAL_UNITS;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.map((item, index) => ({ 
+        ...INITIAL_UNITS[index], 
+        ...item, 
+        id: INITIAL_UNITS[index]?.id 
+      }));
+    }
+    return INITIAL_UNITS;
   });
 
   // Mapa da Força Alterations states
