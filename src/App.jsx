@@ -1390,7 +1390,7 @@ function App() {
                           <td className="py-2.5 px-4 font-bold text-slate-800 border-r border-slate-100">
                             <div className="flex items-center justify-center gap-2">
                               <img
-                                src={`/logos/${unit.id}.png`}
+                                src={`./logos/${unit.id}.png`}
                                 alt={`Logo ${unit.name}`}
                                 className="w-6 h-6 object-contain"
                                 onError={(e) => {
@@ -1651,7 +1651,7 @@ function App() {
                       <div className="bg-slate-50 px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200">
                         <div className="flex items-center gap-3">
                           <img
-                            src={`/logos/${unit.id}.png`}
+                            src={`./logos/${unit.id}.png`}
                             alt={`Logo ${unit.name}`}
                             className="w-6 h-6 object-contain"
                             onError={(e) => {
